@@ -1,0 +1,46 @@
+﻿@page "/tasklist"
+@rendermode InteractiveServer
+<h3>TaskList</h3>
+<input type="text" @bind="description"/>
+<button class="btn btn-primary" @onclick="AddTask">Добавить</button>
+
+<div class="statistics">
+	<div>Всего: @tasklist.Count</div>
+	<div>Выполненно: @tasklist.Where(t => t.DONE).Count()</div>
+	<div>Запланировано: @tasklist.Where(t => !t.DONE).Count() </div>
+</div>
+
+
+<ul>
+	@foreach(TODO task in tasklist)
+	{
+		  <li style="font-size:24px; margin-top:30px; display:flex; align-items:center; gap:8px; @(task.DONE ? "text-decoration:line-through; color:gray;" : "")">
+			<input type="checkbox" @bind="@task.DONE" />
+			@task.Description
+			<button class="delete" @onclick='() => { tasklist.Remove(task); }'></button>
+		</li>
+	}
+</ul>
+
+@code {
+
+	string description = "";
+	List<TODO> tasklist =
+	[
+		new TODO{ Description = "Полить цветы" },
+		new TODO{ Description = "Покормить кота", DONE=true },
+		new TODO{ Description = "Сходить в магазин", DONE=true },
+
+	];
+	void AddTask()
+	{
+		if(!string.IsNullOrEmpty(description) && !string.IsNullOrWhiteSpace(description))
+		{
+			TODO task = new TODO { Description = description };
+			if (tasklist.Contains(task)) return;
+			tasklist.Add(task);
+			description = "";
+		}
+		
+	}
+}

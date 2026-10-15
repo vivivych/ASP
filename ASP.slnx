@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="ASP/ASP.csproj" />
+  <Project Path="Movies/Movies.csproj" Id="985a18ea-c273-4fa6-bb24-e0ac42b276cd" />
+  <Project Path="TODOlist/TODOlist.csproj" Id="d494fe8e-aa85-49ad-ae4f-27e81c74f267" />
 </Solution>
